@@ -65,7 +65,7 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
             loss.backward()
             optimizer.step()
 
-        scores, _, _, _, _ = test(model, train_loader, device)###
+        scores = test(model, train_loader, device)
         #training_loss.update(scores)
         if scores['acc'] > best_acc:
             best_acc = scores['acc']#animal,KS 
@@ -80,10 +80,6 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
 def test(model, loader, device = 'cuda'):
     
     pred, true, scores = [],[],{}
-
-    #############
-    all_labels, all_features, all_attentions, all_masks = [], [], [], []
-    #############
     
     for data, labels, mask in loader:
         data = list(map(lambda x:x.to(dtype=torch.float,device=device), data))
@@ -93,18 +89,6 @@ def test(model, loader, device = 'cuda'):
         pred.append(y_pred)
         true.append(labels)
 
-        #############
-        all_labels.append(labels)
-        all_features.append(features)
-        all_attentions.append(attentions[-1]) # the last layer attention value
-        all_masks.append(mask)
-
-
-    all_labels     = torch.cat(all_labels,     dim=0).cpu().detach()
-    all_features   = torch.cat(all_features,   dim=0).cpu().detach()
-    all_attentions = torch.cat(all_attentions, dim=0).cpu().detach()
-    all_masks      = torch.cat(all_masks,      dim=0).cpu().detach()
-        #############
     
     pred = torch.cat(pred).cpu()
     true = torch.cat(true).cpu()
@@ -117,7 +101,7 @@ def test(model, loader, device = 'cuda'):
     scores['macro_F'] = f1_score(true, pred,average='macro')
     scores['micro_F'] = f1_score(true, pred,average='micro')
 
-    return scores, all_labels, all_features, all_attentions, all_masks#######
+    return scores
 
 
 def train_and_eval(config, seed = 0):
@@ -125,6 +109,6 @@ def train_and_eval(config, seed = 0):
     config['seed'] = seed
     model, optimizer, trainloader, testloader, bank = initialize(config)
     model, _ = train(config, model, optimizer, trainloader, bank)   ##########
-    scores, _, _, _, _ = test(model, testloader)                       ##########
+    scores = test(model, testloader)                      
     return scores
 
