@@ -66,11 +66,10 @@ class Model(nn.Module):
         c = self.cls.expand(bsz, 1, self.config.hidden_size)
         x = torch.cat([c]+x, dim = 1)
         features = F.normalize(x[:,1:],dim=2)
-        #######
-        #attention_mask = torch.ones(*x.shape[:-1]).to(dtype=torch.long,device=device)
+
         ones = torch.ones(bsz,1).to(dtype=torch.long,device=device)
         attention_mask = torch.cat([ones,s],dim=1)
-        #######
+
         token_type_ids = torch.arange(self.config.view_num+1).to(dtype=torch.long, device=device)
         bert_output = self.fusion(x,token_type_ids = token_type_ids,attention_mask=attention_mask)
         x = bert_output[1]
