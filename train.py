@@ -48,7 +48,7 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
             bsz = labels.shape[0]
             data = list(map(lambda x:x.to(dtype=torch.float,device=device), data))
             labels, mask = (labels-1).to(device = device), mask.to(device=device)
-            x,fake,x_m,features, before_fusion, all_attentions = model(data,mask)##################################
+            x, fake, x_m, features = model(data,mask)
             
 
             clsloss = criterion(x, labels)
@@ -66,7 +66,7 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
             optimizer.step()
 
         scores = test(model, train_loader, device)
-        #training_loss.update(scores)
+        
         if scores['acc'] > best_acc:
             best_acc = scores['acc']#animal,KS 
             torch.save(model, model_path)
@@ -84,7 +84,7 @@ def test(model, loader, device = 'cuda'):
     for data, labels, mask in loader:
         data = list(map(lambda x:x.to(dtype=torch.float,device=device), data))
         labels, mask = (labels-1).to(device=device), mask.to(device=device)
-        x,_,_,_,features, attentions = model(data, mask)
+        x,_,_,_ = model(data, mask)
         y_pred = torch.argmax(x,dim=1)
         pred.append(y_pred)
         true.append(labels)
