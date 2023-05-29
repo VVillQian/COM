@@ -3,6 +3,7 @@ This is the official code for the paper "COM: Contrastive Masked-attention model
 
 
 ## Citation
+```
 @article{com/nn/QianW23,
   author       = {Shuwei Qian and
                   Chongjun Wang},
@@ -15,3 +16,4 @@ This is the official code for the paper "COM: Contrastive Masked-attention model
   url          = {https://doi.org/10.1016/j.neunet.2023.03.003},
   doi          = {10.1016/j.neunet.2023.03.003},
 }
+```
