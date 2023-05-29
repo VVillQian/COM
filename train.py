@@ -41,18 +41,9 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
     adloss_fn  = nn.BCEWithLogitsLoss()
     supcon_fn  = SupConLoss()
 
-    ###################################
-    training_loss = {'cls':[], 'adv':[], 'con1':[], 'con2':[]}
-    ###################################
 
     discriminators = [MLP([model.config.dims[i]]+[1024,1024,512,1],batchnorm=True).to(device=device) for i in range(view_num)]#
     for epoch in range(1, config['training']['epoch'] + 1):
-        ################################
-        CLSLoss  = 0
-        ADVLoss  = 0
-        CON1Loss = 0
-        CON2Loss = 0
-        ################################
         for data, labels, mask in train_loader:
             bsz = labels.shape[0]
             data = list(map(lambda x:x.to(dtype=torch.float,device=device), data))
