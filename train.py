@@ -83,19 +83,6 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
             loss.backward()
             optimizer.step()
 
-        ###################################################
-            CLSLoss += clsloss.item()*bsz
-            ADVLoss += adloss.item()*bsz
-            CON1Loss += conloss1.item()*bsz
-            CON2Loss += conloss2.item()*bsz
-            
-
-        training_loss['cls'].append(CLSLoss/len(train_loader))
-        training_loss['adv'].append(ADVLoss/len(train_loader))
-        training_loss['con1'].append(CON1Loss/len(train_loader))
-        training_loss['con2'].append(CON2Loss/len(train_loader))
-        ################################################
-
         scores, _, _, _, _ = test(model, train_loader, device)###
         #training_loss.update(scores)
         if scores['acc'] > best_acc:
