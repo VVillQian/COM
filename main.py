@@ -18,7 +18,6 @@ accumulated_metrics = {n:[] for n in metric_names}
 for seed in range(5):######################################################################
     config = get_default_config(args.dataset)
     config['training']['missing_rate'] = args.missing_rate
-    #config['training']['batch_size'] = 10###
     scores = train_and_eval(config, seed)
     for k, v in accumulated_metrics.items():
         v.append(scores[k])
