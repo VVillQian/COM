@@ -77,18 +77,13 @@ class Model(nn.Module):
         #features = F.normalize(x).unsqueeze(1)
 
 
-        ##############$$$$$
-        before_classification = x
-        ##############$$$$$
-
-
         #7.classify
         x = self.classifier(x)
 
         #8.adversarial
         xr = [ReverseLayerF.apply(x_r[i], 1.0) for i in range(self.config.view_num)]
 
-        return x, xr, xm, features, before_classification, all_attentions#####$$$$$$$
+        return x, xr, xm, features
 
 
 class MLP(nn.Module):
