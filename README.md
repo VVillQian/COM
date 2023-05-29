@@ -6,7 +6,7 @@ This is the official code for the paper "COM: Contrastive Masked-attention model
 @article{com/nn/QianW23,
   author       = {Shuwei Qian and
                   Chongjun Wang},
-  title        = {{COM:} Contrastive Masked-attention model for incomplete multimodal
+  title        = {{COM:} {Contrastive} {Masked-attention} model for incomplete multimodal
                   learning},
   journal      = {Neural Networks},
   volume       = {162},
