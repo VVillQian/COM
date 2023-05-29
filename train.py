@@ -11,8 +11,6 @@ from model import MLP, Model, ModelConfig, ReverseLayerF
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score
 from utils import Bank, IncompleteMultiViewDataset, read_data, prepare_data, get_mask
 
-#from thop import profile
-
 
 def setup_seed(seed):
     torch.manual_seed(seed)
