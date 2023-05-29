@@ -82,18 +82,16 @@ class SupConLoss(nn.Module):
             torch.arange(batch_size * anchor_count).view(-1, 1).to(device),
             0
         )
-        mask = mask * logits_mask #除自身外的正例为1，其余为0
+        mask = mask * logits_mask 
 
         # compute log_prob
-        exp_logits = torch.exp(logits) * logits_mask #除自身外的指数和
+        exp_logits = torch.exp(logits) * logits_mask 
         log_prob = logits - torch.log(exp_logits.sum(1, keepdim=True))
 
         # compute mean of log-likelihood over positive
-        mean_log_prob_pos = (mask * log_prob).sum(1) / (mask.sum(1) + (mask.sum(1)==0))#防止除零为nan
+        mean_log_prob_pos = (mask * log_prob).sum(1) / (mask.sum(1) + (mask.sum(1)==0))
 
         # loss
         loss = - (self.temperature / self.base_temperature) * mean_log_prob_pos
         loss = loss.view(anchor_count, batch_size).mean()
-        #考虑下是否需要平均不为零的个数以及检查是否对batch平均了
-        #为啥要除以self.base_temprature
         return loss
