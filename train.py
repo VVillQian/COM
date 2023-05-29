@@ -34,7 +34,7 @@ def initialize(config):
 
 
 def train(config, model, optimizer, train_loader, bank, device='cuda'):
-    model_path = './models/'+config['name']+'/'+str(round(config['training']['missing_rate'],1))+'tmp'+'.pt'#+str(config['seed'])
+    model_path = './models/'+config['name']+'/'+str(round(config['training']['missing_rate'],1))+'.pt'#+str(config['seed'])
     best_acc   = 0
     view_num   = config['view_num']
     criterion  = nn.CrossEntropyLoss()
