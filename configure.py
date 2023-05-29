@@ -41,27 +41,6 @@ def get_default_config(data_name):
                 lambda3=0.0001,
             ),
         )
-    elif data_name in ['hand']:
-        """The default configs."""
-        return dict(
-            name        = 'hand',
-            dims        = [240,76,216,47,64,6],#去掉最后一个view
-            view_num    = 5,
-            hidden_size = 64,
-            class_num   = 10,
-            path        = './data/handwritten0.mat',
-            splitrate   = 0.8,
-            norm        = 1,
-            training=dict(
-                missing_rate=0.5,
-                epoch=500,
-                batch_size=64,
-                lr=1.0e-3,
-                lambda1=0.01,
-                lambda2=0.01,
-                lambda3=0.01,
-            ),
-        )
     elif data_name in ['ORL']:
         """The default configs."""
         return dict(
