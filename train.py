@@ -74,7 +74,7 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
         if epoch % 10 == 0:
             print('{}, Epoch: {:>4}, Loss: {}'.format(datetime.datetime.now(), epoch, loss))
 
-    return torch.load(model_path), training_loss############################
+    return torch.load(model_path)
 
 
 def test(model, loader, device = 'cuda'):
@@ -108,7 +108,7 @@ def train_and_eval(config, seed = 0):
     setup_seed(seed)
     config['seed'] = seed
     model, optimizer, trainloader, testloader, bank = initialize(config)
-    model, _ = train(config, model, optimizer, trainloader, bank)   ##########
+    model  = train(config, model, optimizer, trainloader, bank)  
     scores = test(model, testloader)                      
     return scores
 
