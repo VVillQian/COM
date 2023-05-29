@@ -41,6 +41,7 @@ class Model(nn.Module):
         bsz = s.shape[0]
         device = next(self.parameters()).device
         x_init = x
+        
         #1.project
         x = [self.projectors[i](x[i]).unsqueeze(1) for i in range(self.config.view_num)]
         x = torch.cat(x, dim=1)     #[N,V,d]
@@ -74,8 +75,6 @@ class Model(nn.Module):
         bert_output = self.fusion(x,token_type_ids = token_type_ids,attention_mask=attention_mask)
         x = bert_output[1]
         all_attentions = bert_output[2]
-        #features = F.normalize(x).unsqueeze(1)
-
 
         #7.classify
         x = self.classifier(x)
