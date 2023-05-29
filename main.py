@@ -15,7 +15,7 @@ print(args.dataset)
 metric_names = ['acc', 'macro_P', 'micro_P', 'macro_R', 'micro_F', 'macro_F']
 accumulated_metrics = {n:[] for n in metric_names}
 
-for seed in range(5):################################################################
+for seed in range(5):######################################################################
     config = get_default_config(args.dataset)
     config['training']['missing_rate'] = args.missing_rate
     #config['training']['batch_size'] = 10###
