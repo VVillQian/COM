@@ -50,13 +50,6 @@ def train(config, model, optimizer, train_loader, bank, device='cuda'):
             labels, mask = (labels-1).to(device = device), mask.to(device=device)
             x,fake,x_m,features, before_fusion, all_attentions = model(data,mask)##################################
             
-            '''#
-            print(sum([p.numel() for p in model.parameters()]))
-            flops, params = profile(model, inputs=(data,mask))
-            print('FLOPs: {}'.format(flops))
-            print('Model Size: {}'.format(params))
-            assert False
-            #'''
 
             clsloss = criterion(x, labels)
             real    = bank.sample(bsz)
